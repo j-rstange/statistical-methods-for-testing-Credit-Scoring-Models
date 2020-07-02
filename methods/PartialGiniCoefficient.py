@@ -91,9 +91,11 @@ def partial_gini_coefficient(true_class, probability, partial_gini_cut_off):
 
     # area under the curve to cut_off
     sum_area = sum(df_main['area'][:cut_off_decile+1])
-    area_under_diagonal=0.5*df_main['cum_number_perc'][cut_off_decile]*df_main['cum_number_of_bad_perc'][cut_off_decile]
+    area_under_diagonal=0.5*df_main['cum_number_perc'][cut_off_decile]*df_main['cum_number_perc'][cut_off_decile]
     # area between diagonal and lorenz_curve
     A1 = area_under_diagonal-sum_area
+    if A1 == 0:
+        A1 = 0.00000000001
     PG = A1 / (sum_area+A1)
     x = df_main['decile']
     y = df_main['cum_number_of_bad_perc']
